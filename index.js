@@ -91,6 +91,7 @@ var finances = [
 // Calculate number of months included in the dataset
 var totalMonths = finances.length;
 
+
 // The net total amount of Profit/Losses over the entire period.
 // - extract number from array and add them
 var total = 0;
@@ -98,6 +99,7 @@ var total = 0;
 for (let i = 0; i < finances.length; i++) {
   total += finances[i][1];
 };
+
 
 // The average of the **changes** in Profit/Losses over the entire period.
 var totalChange = 0;
@@ -110,11 +112,38 @@ for (let i = 1; i < finances.length; i++) {
 var average = totalChange/(totalMonths - 1);
 average = average.toFixed(2);
 
+
+// The greatest increase in Profit/Losses (date and difference in the amounts)
+var increaseDate = "";
+var increaseDiff = 0;
+
+for (let i = 1; i < finances.length; i++) {
+  var difference = finances[i][1] - finances[i-1][1];
+  if (difference > increaseDiff) {
+    increaseDiff = difference;
+    increaseDate = finances[i][0];
+  }
+};
+
+
+// The greatest decrease in Profit/Losses (date and difference in the amounts)
+var decreaseDate = "";
+var decreaseDiff = 0;
+
+for (let i = 1; i < finances.length; i++) {
+  var difference = finances[i][1] - finances[i-1][1];
+  if (difference < decreaseDiff) {
+    decreaseDiff = difference;
+    decreaseDate = finances[i][0];
+  }
+};
+
+
 // Results
 console.log("Financial Analysis");
 console.log("----------------");
 console.log("Total Months: " + totalMonths);
 console.log(`Total: $${total}`);
 console.log("Average Change: " + average);
-
-
+console.log(`Greatest Increase in Profits/Losses: ${increaseDate} ($${increaseDiff})`);
+console.log(`Greatest Decrease in Profits/Losses: ${decreaseDate} ($${decreaseDiff})`);
