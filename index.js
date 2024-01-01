@@ -86,3 +86,35 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+
+
+// Calculate number of months included in the dataset
+var totalMonths = finances.length;
+
+// The net total amount of Profit/Losses over the entire period.
+// - extract number from array and add them
+var total = 0;
+
+for (let i = 0; i < finances.length; i++) {
+  total += finances[i][1];
+};
+
+// The average of the **changes** in Profit/Losses over the entire period.
+var totalChange = 0;
+
+for (let i = 1; i < finances.length; i++) {
+  var difference = finances[i][1] - finances[i-1][1];
+  totalChange += difference;
+};
+
+var average = totalChange/(totalMonths - 1);
+average = average.toFixed(2);
+
+// Results
+console.log("Financial Analysis");
+console.log("----------------");
+console.log("Total Months: " + totalMonths);
+console.log(`Total: $${total}`);
+console.log("Average Change: " + average);
+
+
